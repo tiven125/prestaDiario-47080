@@ -1,68 +1,31 @@
-// iniciar Secccion
+document.addEventListener("DOMContentLoaded", function () {
+  const miDivPrestamos = document.getElementById("miDivPrestamos");
+  miDivPrestamos.addEventListener("click", irPrestamo);
+  const miDivClientes = document.getElementById("miDivClientes");
+  miDivClientes.addEventListener("click", irClientes);
 
-var usuarios = [
-  {
-    nombreUsuario: "juan",
-    contrasena: "Juan125",
-    correoElectronico: "Juan125@.com",
-  },
-  {
-    nombreUsuario: "tiven0125",
-    contrasena: "Pluton0125",
-    correoElectronico: "tiven@.com",
-  },
-  {
-    nombreUsuario: "ryan",
-    contrasena: "105495",
-    correoElectronico: "ryan@.com",
-  },
-];
+  const cobradores = document.getElementById("cobradores");
+  cobradores.addEventListener("click", irCobradores);
+});
 
-//? funciones
-
-// intetos Ingresar
-
-function validarUsuarios() {
-  let usuarioEncontrado = false;
-
-  let intentos = 1;
-  while (intentos <= 3) {
-    let inpcorreoElectronico = prompt("Ingrese el correo electronico");
-    let inpcontrasena = prompt("Ingrese la Contraseña");
-
-    for (let i = 0; i < usuarios.length; i++) {
-      if (
-        inpcontrasena == usuarios[i].contrasena &&
-        inpcorreoElectronico == usuarios[i].correoElectronico
-      ) {
-        alert("Bienvenido " + usuarios[i].nombreUsuario);
-        calcularPrestamo();
-        usuarioEncontrado = true;
-        break;
-      }
-    }
-    if (!usuarioEncontrado) {
-      alert("Credenciales incorrectas. Intento" + intentos);
-    } else {
-      break;
-    }
-    intentos++;
-  }
+function irClientes() {
+  location.href = "../page/clientes.html";
+}
+function irCobradores() {
+  location.href = "../page/cobradores.html";
+}
+function irPrestamo() {
+  location.href = "../page/prestamo.html";
 }
 
-validarUsuarios();
-
+const Btnprestamo = document.getElementById("Btnprestamo");
+Btnprestamo.addEventListener("click", calcularPrestamo);
+// Calculos
 function calcularPrestamo() {
-  // Solicitar al usuario el monto del préstamo, tasa de interés diaria y días de préstamo
-  const montoPrestamo = parseFloat(prompt("Ingrese el monto del préstamo:"));
-  const tasaInteresDiaria = parseFloat(
-    prompt("Ingrese la tasa de interés diaria (%):")
-  );
-  const diasPrestamo = parseInt(
-    prompt("Ingrese la cantidad de días del préstamo:")
-  );
+  const montoPrestamo = parseFloat(document.getElementById("monto").value);
+  const tasaInteresDiaria = parseFloat(document.getElementById("tasa").value);
+  const diasPrestamo = parseInt(document.getElementById("dias").value);
 
-  // Calcular el monto total a pagar
   let montoTotal = montoPrestamo;
   for (let dia = 1; dia <= diasPrestamo; dia++) {
     const interesDiario = (montoTotal * tasaInteresDiaria) / 100;
@@ -70,8 +33,7 @@ function calcularPrestamo() {
     console.log(montoTotal);
   }
 
-  // Mostrar el monto total a pagar al final de los días especificados
-  alert(
-    `El monto total a pagar al final de ${diasPrestamo} días es: $${montoTotal.toFixed()}`
-  );
+  document.getElementById(
+    "resultado"
+  ).innerText = `El monto total a pagar al final de ${diasPrestamo} días es: $${montoTotal.toFixed()}`;
 }

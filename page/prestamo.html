@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="../assest/css/prestamos.css" />
+    <title>Calculadora de Préstamo</title>
+  </head>
+  <body>
+    <h1>Calculadora de Préstamo</h1>
+
+    <div id="formularioPrestamo">
+      <div class="form-group">
+        <label for="monto">Monto del préstamo:</label>
+        <input type="number" id="monto" required />
+      </div>
+      <div class="form-group">
+        <label for="tasa">Tasa de interés diaria (%):</label>
+        <input type="number" id="tasa" required />
+      </div>
+      <div class="form-group">
+        <label for="dias">Días de préstamo:</label>
+        <input type="number" id="dias" required />
+      </div>
+      <button id="Btnprestamo" type="button" ">Calcular</button>
+    </div>
+
+    <p id="resultado"></p>
+  <script src="../js/app.js"></script>
+  </body>
+</html>
