@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../assest/css/vistaPrestamos.css" />
+    <title>Realizar Préstamo</title>
+  </head>
+  <body>
+    <div id="container">
+      <h1>Realizar Préstamo</h1>
+
+      <form id="formRealizarPrestamo">
+        <label for="cobrador">Cobrador:</label>
+        <select id="cobrador" name="cobrador">
+          <!-- Las opciones se llenarán con JavaScript -->
+        </select>
+        <br />
+        <label for="cliente">Cliente:</label>
+        <select id="cliente" name="cliente">
+          <!-- Las opciones se llenarán con JavaScript -->
+        </select>
+        <br />
+        <label for="monto">Monto:</label>
+        <input type="number" id="monto" name="monto" required />
+        <br />
+        <label for="tasaInteres">Tasa de Interés:</label>
+        <input
+          type="number"
+          id="tasaInteres"
+          name="tasaInteres"
+          step="0.01"
+          required
+        />
+        <br />
+        <label for="plazo">Plazo:</label>
+        <input type="number" id="plazo" name="plazo" required />
+        <br />
+        <label for="proposito">Propósito del Préstamo:</label>
+        <input type="text" id="proposito" name="proposito" required />
+        <br />
+        <input type="submit" value="Realizar Préstamo" />
+      </form>
+    </div>
+
+    <button id="btnVolverIndex">Volver al Inicio</button>
+
+    <script src="../js/clientes.js"></script>
+    <script src="../js/cobradores.js"></script>
+
+    <script src="../js/prestamos.js"></script>
+  </body>
+</html>

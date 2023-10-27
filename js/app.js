@@ -1,11 +1,18 @@
 document.addEventListener("DOMContentLoaded", function () {
   const miDivPrestamos = document.getElementById("miDivPrestamos");
   miDivPrestamos.addEventListener("click", irPrestamo);
+
+  const simuladorPrestamos = document.getElementById("simuladorPrestamos");
+  simuladorPrestamos.addEventListener("click", irSimulador);
+
   const miDivClientes = document.getElementById("miDivClientes");
   miDivClientes.addEventListener("click", irClientes);
 
   const cobradores = document.getElementById("cobradores");
   cobradores.addEventListener("click", irCobradores);
+
+  const informe = document.getElementById("informe");
+  informe.addEventListener("click", irInforme);
 });
 
 function irClientes() {
@@ -15,7 +22,13 @@ function irCobradores() {
   location.href = "../page/cobradores.html";
 }
 function irPrestamo() {
-  location.href = "../page/prestamo.html";
+  location.href = "../page/prestamos.html";
+}
+function irSimulador() {
+  location.href = "../page/simulador.html";
+}
+function irInforme() {
+  location.href = "../page/informes.html";
 }
 
 const Btnprestamo = document.getElementById("Btnprestamo");

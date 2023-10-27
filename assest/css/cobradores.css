@@ -36,7 +36,11 @@ button {
   border-radius: 5px;
 }
 
-#btnAgregarCliente {
+#btnAgregarCobrador {
+  background-color: #0066cc;
+  margin-bottom: 10px;
+}
+#btnirMenu {
   background-color: #0066cc;
   margin-bottom: 10px;
 }
@@ -119,9 +123,4 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
   background-color: #0055a3;
-}
-
-#btnirMenu {
-  background-color: #0066cc;
-  margin-bottom: 10px;
 }

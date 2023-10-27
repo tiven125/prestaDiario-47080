@@ -7,16 +7,87 @@
     <title>Clientes</title>
   </head>
   <body>
-    <form id="formularioCliente" class="formularioCliente">
-      <input type="text" id="nombre" placeholder="Nombre" />
-      <input type="text" id="apellido" placeholder="Apellido" />
-      <input type="tel" id="telefono" placeholder="Teléfono" />
-      <input type="email" id="correo" placeholder="Correo" />
-      <input type="text" id="direccion" placeholder="Dirección" />
-      <button type="submit">Agregar Cliente</button>
-    </form>
+    <div id="container">
+      <!-- Botón para agregar un nuevo cliente -->
+      <button id="btnAgregarCliente">Agregar Cliente</button>
+      <button id="btnirMenu">Regresar Menu</button>
 
-    <div id="clientes" class="clientes"></div>
+      <!-- La tabla para mostrar los clientes -->
+      <table id="tablaClientes">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Teléfono</th>
+            <th>Correo</th>
+            <th>Dirección</th>
+            <th>Fecha de Creación</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Los clientes se mostrarán aquí -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Modal para agregar un nuevo cliente -->
+    <div id="modalAgregarCliente" class="modal">
+      <div class="modal-content">
+        <span class="close-button" onclick="cerrarModal()">&times;</span>
+        <h2>Agregar Cliente</h2>
+        <form id="formAgregarCliente">
+          <label for="nombre">Nombre:</label>
+          <input type="text" id="nombre" name="nombre" required /><br />
+          <label for="apellido">Apellido:</label>
+          <input type="text" id="apellido" name="apellido" required /><br />
+          <label for="telefono">Teléfono:</label>
+          <input type="tel" id="telefono" name="telefono" required /><br />
+          <label for="correo">Correo:</label>
+          <input type="email" id="correo" name="correo" required /><br />
+          <label for="direccion">Dirección:</label>
+          <input type="text" id="direccion" name="direccion" required /><br />
+          <input type="submit" value="Agregar" />
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal para editar un cliente -->
+    <div id="modalEditarCliente" class="modal">
+      <div class="modal-content">
+        <span class="close-button" onclick="cerrarModal()">&times;</span>
+        <h2>Editar Cliente</h2>
+        <form id="formEditarCliente">
+          <label for="nombreEditar">Nombre:</label>
+          <input type="text" id="nombreEditar" name="nombre" required /><br />
+          <label for="apellidoEditar">Apellido:</label>
+          <input
+            type="text"
+            id="apellidoEditar"
+            name="apellido"
+            required
+          /><br />
+          <label for="telefonoEditar">Teléfono:</label>
+          <input
+            type="tel"
+            id="telefonoEditar"
+            name="telefono"
+            required
+          /><br />
+          <label for="correoEditar">Correo:</label>
+          <input type="email" id="correoEditar" name="correo" required /><br />
+          <label for="direccionEditar">Dirección:</label>
+          <input
+            type="text"
+            id="direccionEditar"
+            name="direccion"
+            required
+          /><br />
+          <input type="submit" value="Guardar cambios" />
+        </form>
+      </div>
+    </div>
+
     <script src="../js/clientes.js"></script>
   </body>
 </html>

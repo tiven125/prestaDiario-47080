@@ -1,52 +1,178 @@
-let cobradoress = [
+let cobradores = [
   {
-    nombre: "Juan",
-    apellido: "Pérez",
+    nombre: "Laura",
+    apellido: "Gómez",
     telefono: "1234567890",
-    correo: "juan.perez@example.com",
-    direccion: "Calle Falsa 123",
+    correo: "laura.gomez@example.com",
+    direccion: "Calle 10 #15-30, Bogotá, Colombia",
+    fechaCreacion: new Date(),
+  },
+  {
+    nombre: "Carlos",
+    apellido: "Ramírez",
+    telefono: "9876543210",
+    correo: "carlos.ramirez@example.com",
+    direccion: "Carrera 20 #5-45, Medellín, Colombia",
+    fechaCreacion: new Date(),
+  },
+  {
+    nombre: "Sofía",
+    apellido: "Martínez",
+    telefono: "1234123412",
+    correo: "sofia.martinez@example.com",
+    direccion: "Calle 15 #30-10, Cali, Colombia",
+    fechaCreacion: new Date(),
+  },
+  {
+    nombre: "Daniel",
+    apellido: "Fernández",
+    telefono: "4567891230",
+    correo: "daniel.fernandez@example.com",
+    direccion: "Carrera 5 #45-15, Barranquilla, Colombia",
+    fechaCreacion: new Date(),
+  },
+  {
+    nombre: "Ana",
+    apellido: "López",
+    telefono: "7890123456",
+    correo: "ana.lopez@example.com",
+    direccion: "Calle 25 #12-45, Cartagena, Colombia",
     fechaCreacion: new Date(),
   },
 ];
 
-document.addEventListener("DOMContentLoaded", mostrarcobradoress);
+document.getElementById("btnirMenu").addEventListener("click", function () {
+  location.href = "../index.html";
+});
 
-function agregarcobradores(e) {
-  e.preventDefault();
+// Función para mostrar los cobradores en la tabla
+function mostrarCobradores() {
+  const tbody = document
+    .getElementById("tablaCobradores")
+    .getElementsByTagName("tbody")[0];
+  tbody.innerHTML = "";
 
-  const nombre = document.getElementById("nombre").value;
-  const apellido = document.getElementById("apellido").value;
-  const telefono = document.getElementById("telefono").value;
-  const correo = document.getElementById("correo").value;
-  const direccion = document.getElementById("direccion").value;
-  const fechaCreacion = new Date();
+  cobradores.forEach((cobrador, index) => {
+    const row = tbody.insertRow();
+    row.insertCell().textContent = cobrador.nombre;
+    row.insertCell().textContent = cobrador.apellido;
+    row.insertCell().textContent = cobrador.telefono;
+    row.insertCell().textContent = cobrador.correo;
+    row.insertCell().textContent = cobrador.direccion;
+    row.insertCell().textContent = cobrador.fechaCreacion
+      .toISOString()
+      .split("T")[0];
 
-  const cobradores = {
+    // Celda de acciones
+    const cell = row.insertCell();
+    const btnEditar = document.createElement("button");
+    btnEditar.textContent = "Editar";
+    btnEditar.classList.add("editar");
+    btnEditar.addEventListener("click", () => editarCobrador(index));
+    cell.appendChild(btnEditar);
+
+    const btnEliminar = document.createElement("button");
+    btnEliminar.classList.add("eliminar");
+    btnEliminar.textContent = "Eliminar";
+    btnEliminar.addEventListener("click", () => eliminarCobrador(index));
+    cell.appendChild(btnEliminar);
+  });
+}
+
+// Función para agregar un nuevo cobrador
+function agregarCobrador() {
+  const form = document.getElementById("formAgregarCobrador");
+  const nombre = form.nombre.value;
+  const apellido = form.apellido.value;
+  const telefono = form.telefono.value;
+  const correo = form.correo.value;
+  const direccion = form.direccion.value;
+
+  const nuevoCobrador = {
     nombre,
     apellido,
     telefono,
     correo,
     direccion,
-    fechaCreacion,
+    fechaCreacion: new Date(),
   };
 
-  cobradoress.push(cobradores);
-
-  mostrarcobradoress();
-
-  document.getElementById("formulariocobradores").reset();
+  cobradores.push(nuevoCobrador);
+  mostrarCobradores();
+  cerrarModal();
 }
 
-function mostrarcobradoress() {
-  const cobradoressDiv = document.getElementById("cobradoress");
-  cobradoressDiv.innerHTML = "";
+// Función para editar un cobrador
+function editarCobrador(index) {
+  const cobrador = cobradores[index];
+  document.getElementById("nombreEditar").value = cobrador.nombre;
+  document.getElementById("apellidoEditar").value = cobrador.apellido;
+  document.getElementById("telefonoEditar").value = cobrador.telefono;
+  document.getElementById("correoEditar").value = cobrador.correo;
+  document.getElementById("direccionEditar").value = cobrador.direccion;
 
-  cobradoress.map((cobradores) => {
-    const p = document.createElement("p");
-    p.innerText = `Nombre: ${cobradores.nombre}, Apellido: ${cobradores.apellido}, Teléfono: ${cobradores.telefono}, Correo: ${cobradores.correo}, Dirección: ${cobradores.direccion}, Fecha de Creación: ${cobradores.fechaCreacion}`;
-    cobradoressDiv.appendChild(p);
+  // Guardar el índice del cobrador que se está editando
+  document.getElementById("formEditarCobrador").dataset.index = index;
+
+  // Mostrar el modal de edición
+  document.getElementById("modalEditarCobrador").style.display = "block";
+}
+
+// Función para guardar los cambios al editar un cobrador
+function guardarCambios() {
+  const form = document.getElementById("formEditarCobrador");
+  const index = form.dataset.index;
+  const nombre = form.nombre.value;
+  const apellido = form.apellido.value;
+  const telefono = form.telefono.value;
+  const correo = form.correo.value;
+  const direccion = form.direccion.value;
+
+  cobradores[index] = {
+    nombre,
+    apellido,
+    telefono,
+    correo,
+    direccion,
+    fechaCreacion: new Date(),
+  };
+
+  mostrarCobradores();
+  cerrarModal();
+}
+
+// Función para eliminar un cobrador
+function eliminarCobrador(index) {
+  if (confirm("¿Estás seguro de que quieres eliminar este cobrador?")) {
+    cobradores.splice(index, 1);
+    mostrarCobradores();
+  }
+}
+
+// Función para cerrar cualquier modal
+function cerrarModal() {
+  const modals = document.getElementsByClassName("modal");
+  for (const modal of modals) {
+    modal.style.display = "none";
+  }
+}
+
+// Asignar eventos
+document.getElementById("btnAgregarCobrador").addEventListener("click", () => {
+  document.getElementById("modalAgregarCobrador").style.display = "block";
+});
+document
+  .getElementById("formAgregarCobrador")
+  .addEventListener("submit", (e) => {
+    e.preventDefault();
+    agregarCobrador();
   });
-}
+document
+  .getElementById("formEditarCobrador")
+  .addEventListener("submit", (e) => {
+    e.preventDefault();
+    guardarCambios();
+  });
 
-const formulariocobradores = document.getElementById("formulariocobradores");
-formulariocobradores.addEventListener("submit", agregarcobradores);
+// Mostrar los cobradores iniciales
+mostrarCobradores();

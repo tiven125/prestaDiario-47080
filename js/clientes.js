@@ -25,44 +25,136 @@ let clientes = [
   },
 ];
 
-document.addEventListener("DOMContentLoaded", mostrarClientes);
+document.getElementById("btnirMenu").addEventListener("click", function () {
+  location.href = "../index.html";
+});
+// Función para mostrar los clientes en la tabla
+function mostrarClientes() {
+  const tbody = document
+    .getElementById("tablaClientes")
+    .getElementsByTagName("tbody")[0];
+  tbody.innerHTML = "";
 
-function agregarCliente(e) {
-  e.preventDefault();
+  clientes.forEach((cliente, index) => {
+    const row = tbody.insertRow();
+    row.insertCell().textContent = cliente.nombre;
+    row.insertCell().textContent = cliente.apellido;
+    row.insertCell().textContent = cliente.telefono;
+    row.insertCell().textContent = cliente.correo;
+    row.insertCell().textContent = cliente.direccion;
+    row.insertCell().textContent = cliente.fechaCreacion
+      .toISOString()
+      .split("T")[0];
 
-  const nombre = document.getElementById("nombre").value;
-  const apellido = document.getElementById("apellido").value;
-  const telefono = document.getElementById("telefono").value;
-  const correo = document.getElementById("correo").value;
-  const direccion = document.getElementById("direccion").value;
-  const fechaCreacion = new Date();
+    // Celda de acciones
+    const cell = row.insertCell();
+    const btnEditar = document.createElement("button");
+    btnEditar.textContent = "Editar";
+    btnEditar.classList.add("editar"); // Añadir la clase 'editar'
+    btnEditar.addEventListener("click", () => editarCliente(index));
+    cell.appendChild(btnEditar);
 
-  const cliente = {
+    const btnEliminar = document.createElement("button");
+    btnEliminar.textContent = "Eliminar";
+    btnEliminar.classList.add("eliminar"); // Añadir la clase 'eliminar'
+    btnEliminar.addEventListener("click", () => eliminarCliente(index));
+    cell.appendChild(btnEliminar);
+  });
+}
+
+// Función para agregar un nuevo cliente
+function agregarCliente() {
+  const form = document.getElementById("formAgregarCliente");
+  const nombre = form.nombre.value;
+  const apellido = form.apellido.value;
+  const telefono = form.telefono.value;
+  const correo = form.correo.value;
+  const direccion = form.direccion.value;
+
+  const nuevoCliente = {
     nombre,
     apellido,
     telefono,
     correo,
     direccion,
-    fechaCreacion,
+    fechaCreacion: new Date(),
   };
 
-  clientes.push(cliente);
+  clientes.push(nuevoCliente);
+  mostrarClientes();
+  cerrarModal();
+}
+
+// Función para editar un cliente
+function editarCliente(index) {
+  const cliente = clientes[index];
+  document.getElementById("nombreEditar").value = cliente.nombre;
+  document.getElementById("apellidoEditar").value = cliente.apellido;
+  document.getElementById("telefonoEditar").value = cliente.telefono;
+  document.getElementById("correoEditar").value = cliente.correo;
+  document.getElementById("direccionEditar").value = cliente.direccion;
+
+  // Guardar el índice del cliente que se está editando
+  document.getElementById("formEditarCliente").dataset.index = index;
+
+  // Mostrar el modal de edición
+  document.getElementById("modalEditarCliente").style.display = "block";
+}
+
+// Función para guardar los cambios al editar un cliente
+function guardarCambios() {
+  const form = document.getElementById("formEditarCliente");
+  const index = form.dataset.index;
+  const nombre = form.nombre.value;
+  const apellido = form.apellido.value;
+  const telefono = form.telefono.value;
+  const correo = form.correo.value;
+  const direccion = form.direccion.value;
+
+  clientes[index] = {
+    nombre,
+    apellido,
+    telefono,
+    correo,
+    direccion,
+    fechaCreacion: new Date(),
+  };
 
   mostrarClientes();
-
-  document.getElementById("formularioCliente").reset();
+  cerrarModal();
 }
 
-function mostrarClientes() {
-  const clientesDiv = document.getElementById("clientes");
-  clientesDiv.innerHTML = "";
+// Función para eliminar un cliente
+function eliminarCliente(index) {
+  if (confirm("¿Estás seguro de que quieres eliminar este cliente?")) {
+    clientes.splice(index, 1);
+    mostrarClientes();
+  }
+}
 
-  clientes.map((cliente) => {
-    const p = document.createElement("p");
-    p.innerText = `Nombre: ${cliente.nombre}, Apellido: ${cliente.apellido}, Teléfono: ${cliente.telefono}, Correo: ${cliente.correo}, Dirección: ${cliente.direccion}, Fecha de Creación: ${cliente.fechaCreacion}`;
-    clientesDiv.appendChild(p);
+// Función para cerrar cualquier modal
+function cerrarModal() {
+  const modals = document.getElementsByClassName("modal");
+  for (const modal of modals) {
+    modal.style.display = "none";
+  }
+}
+
+// Asignar eventos
+document.getElementById("btnAgregarCliente").addEventListener("click", () => {
+  document.getElementById("modalAgregarCliente").style.display = "block";
+});
+document
+  .getElementById("formAgregarCliente")
+  .addEventListener("submit", (e) => {
+    e.preventDefault();
+    agregarCliente();
   });
-}
+document.getElementById("formEditarCliente").addEventListener("submit", (e) => {
+  e.preventDefault();
 
-const formularioCliente = document.getElementById("formularioCliente");
-formularioCliente.addEventListener("submit", agregarCliente);
+  guardarCambios();
+});
+
+// Mostrar los clientes iniciales
+mostrarClientes();

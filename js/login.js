@@ -47,7 +47,7 @@ function validarUsuarios(e) {
       if (usuarios[i].rol == "administrador") {
         location.href = "../index.html";
       } else {
-        location.href = "../prueba.html";
+        location.href = "../page/vistaCobradores.html";
       }
 
       break;

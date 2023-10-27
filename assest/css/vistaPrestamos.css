@@ -1,0 +1,50 @@
+/* Estilos generales */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+}
+
+#container {
+  margin: 20px;
+}
+
+/* Estilos para el formulario */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 50%;
+  margin: auto;
+}
+
+label {
+  font-weight: bold;
+  color: #333;
+}
+
+select,
+input[type="text"],
+input[type="number"],
+input[type="email"] {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 100%;
+}
+
+input[type="submit"] {
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background-color: #0055a3;
+}
