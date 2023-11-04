@@ -13,6 +13,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const informe = document.getElementById("informe");
   informe.addEventListener("click", irInforme);
+
+  const divisa = document.getElementById("divisa");
+  divisa.addEventListener("click", irDivisa);
 });
 
 function irClientes() {
@@ -29,6 +32,10 @@ function irSimulador() {
 }
 function irInforme() {
   location.href = "../page/informes.html";
+}
+
+function irDivisa() {
+  location.href = "../page/divisa.html";
 }
 
 const Btnprestamo = document.getElementById("Btnprestamo");

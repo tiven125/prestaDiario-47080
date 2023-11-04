@@ -42,19 +42,30 @@ function validarUsuarios(e) {
       email == usuarios[i].correoElectronico &&
       rol == usuarios[i].rol
     ) {
-      alert("Bienvenido " + usuarios[i].nombreUsuario);
+      Swal.fire({
+        title: "Bienvenido " + usuarios[i].nombreUsuario,
+        icon: "success",
+      });
+      // alert("Bienvenido " + usuarios[i].nombreUsuario);
       usuarioEncontrado = true;
-      if (usuarios[i].rol == "administrador") {
-        location.href = "../index.html";
-      } else {
-        location.href = "../page/vistaCobradores.html";
-      }
+
+      setTimeout(function () {
+        if (usuarios[i].rol == "administrador") {
+          location.href = "../index.html";
+        } else {
+          location.href = "../page/vistaCobradores.html";
+        }
+      }, 2000);
 
       break;
     }
   }
   if (!usuarioEncontrado) {
-    alert("Credenciales incorrectas. Vuelta a intentar ");
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Credenciales incorrectas. Vuelta a intentar ",
+    });
     formulario.reset();
   }
 }

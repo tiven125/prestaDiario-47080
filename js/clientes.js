@@ -82,6 +82,10 @@ function agregarCliente() {
 
   clientes.push(nuevoCliente);
   mostrarClientes();
+  Swal.fire({
+    title: "Cliente Creado",
+    icon: "success",
+  });
   cerrarModal();
 }
 
@@ -121,15 +125,31 @@ function guardarCambios() {
   };
 
   mostrarClientes();
+  Swal.fire({
+    title: "Cliente Modificado",
+    icon: "success",
+  });
   cerrarModal();
 }
 
 // Función para eliminar un cliente
 function eliminarCliente(index) {
-  if (confirm("¿Estás seguro de que quieres eliminar este cliente?")) {
-    clientes.splice(index, 1);
-    mostrarClientes();
-  }
+  Swal.fire({
+    title: "¿Estás seguro de que quieres eliminar este cliente?",
+    text: "No podrás revertir esta acción",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Sí, eliminar",
+    cancelButtonText: "Cancelar",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      clientes.splice(index, 1);
+      mostrarClientes();
+      Swal.fire("Eliminado", "El cliente ha sido eliminado.", "success");
+    }
+  });
 }
 
 // Función para cerrar cualquier modal

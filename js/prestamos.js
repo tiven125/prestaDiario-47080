@@ -47,8 +47,14 @@ function realizarPrestamo() {
   // Guardar los préstamos en el localStorage
   localStorage.setItem("prestamos", JSON.stringify(prestamos));
 
-  alert("Préstamo guardado con éxito");
-  location.href = "../index.html";
+  Swal.fire({
+    title: "Prestamo Creado",
+    icon: "success",
+  });
+
+  setTimeout(function () {
+    location.href = "../index.html";
+  }, 2000);
 }
 
 document

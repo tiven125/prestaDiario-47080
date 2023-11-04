@@ -99,6 +99,10 @@ function agregarCobrador() {
 
   cobradores.push(nuevoCobrador);
   mostrarCobradores();
+  Swal.fire({
+    title: "Cobrador Creado",
+    icon: "success",
+  });
   cerrarModal();
 }
 
@@ -138,15 +142,31 @@ function guardarCambios() {
   };
 
   mostrarCobradores();
+  Swal.fire({
+    title: "Cobrador Modificado",
+    icon: "success",
+  });
   cerrarModal();
 }
 
 // Función para eliminar un cobrador
 function eliminarCobrador(index) {
-  if (confirm("¿Estás seguro de que quieres eliminar este cobrador?")) {
-    cobradores.splice(index, 1);
-    mostrarCobradores();
-  }
+  Swal.fire({
+    title: "¿Estás seguro de que quieres eliminar este cobrador?",
+    text: "No podrás revertir esta acción",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Sí, eliminar",
+    cancelButtonText: "Cancelar",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      cobradores.splice(index, 1);
+      mostrarCobradores();
+      Swal.fire("Eliminado", "El cobrador ha sido eliminado.", "success");
+    }
+  });
 }
 
 // Función para cerrar cualquier modal
